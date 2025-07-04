@@ -23,7 +23,7 @@ exports.up = (pgm) => {
 
     // FYI: The maximum length of a hash password is 60 characters.
     // Source: https://www.npmjs.com/package/bcrypt#hash-info
-    password_hash: {
+    password: {
       type: "varchar(60)",
       notNull: true,
     },
