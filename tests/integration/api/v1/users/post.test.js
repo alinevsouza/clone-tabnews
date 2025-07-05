@@ -20,7 +20,7 @@ describe("POST /api/v1/users", () => {
         body: JSON.stringify({
           username: "testuser",
           email: "testuser@email.com",
-          password: "senha123",
+          password: "password123",
         }),
       });
 
@@ -42,20 +42,20 @@ describe("POST /api/v1/users", () => {
 
       const userInDatabase = await user.findOneByUsername("testuser");
       const correctPasswordMatch = await password.compare(
-        "senha123",
+        "password123",
         userInDatabase.password,
       );
       expect(correctPasswordMatch).toBe(true);
 
       const incorrectPasswordMatch = await password.compare(
-        "wrongpassword",
+        "wrongpassword123",
         userInDatabase.password,
       );
       expect(incorrectPasswordMatch).toBe(false);
     });
 
     test("With duplicated 'email'", async () => {
-      const response1 = await fetch("http://localhost:3000/api/v1/users", {
+      const response = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,11 +63,11 @@ describe("POST /api/v1/users", () => {
         body: JSON.stringify({
           username: "emailduplicated1",
           email: "emailduplicated@email.com",
-          password: "senha123",
+          password: "password123",
         }),
       });
 
-      expect(response1.status).toBe(201);
+      expect(response.status).toBe(201);
 
       const response2 = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
@@ -77,7 +77,7 @@ describe("POST /api/v1/users", () => {
         body: JSON.stringify({
           username: "emailduplicated2",
           email: "Emailduplicated@email.com",
-          password: "senha123",
+          password: "password123",
         }),
       });
 
@@ -94,7 +94,7 @@ describe("POST /api/v1/users", () => {
     });
 
     test("With duplicated 'username'", async () => {
-      const response1 = await fetch("http://localhost:3000/api/v1/users", {
+      const response = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,11 +102,11 @@ describe("POST /api/v1/users", () => {
         body: JSON.stringify({
           username: "usernameduplicated",
           email: "usernameduplicated1@email.com",
-          password: "senha123",
+          password: "password123",
         }),
       });
 
-      expect(response1.status).toBe(201);
+      expect(response.status).toBe(201);
 
       const response2 = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
@@ -116,7 +116,7 @@ describe("POST /api/v1/users", () => {
         body: JSON.stringify({
           username: "usernameduplicated",
           email: "usernameduplicated2@email.com",
-          password: "senha123",
+          password: "password123",
         }),
       });
 
